@@ -1,0 +1,36 @@
+.swiper {
+    width: 85%;
+    height: 85%;
+}
+
+.swiper-slide {
+    margin-top: 5%;
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1078px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 30px;
+}
+
+.swiper-slide p{
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 50%;
+    
+}
+
+.swiper-button-next, .swiper-button-prev {
+    color: rgba(253, 208, 67, .95);
+}
