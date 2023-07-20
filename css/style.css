@@ -300,6 +300,7 @@ a:focus {
     color: #ffffff;
     font-size: 35px;
     font-weight: 600;
+    text-transform: uppercase;
 }
 
 .hero .hero-text .typed-text {
