@@ -2,15 +2,21 @@
 <html lang="fr">
 
 <head>
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-92JM4SBQF7"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'G-92JM4SBQF7');
     </script>
+
     <meta charset="utf-8">
     <title>PortFolio - BTS SIO SLAM</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -47,12 +53,14 @@
         </button>
 
         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-            <div class="navbar-nav ml-auto">
+            <div class="navbar-nav ml-auto text-left">
                 <a href="#home" class="nav-item nav-link active">Accueil</a>
                 <a href="#about" class="nav-item nav-link">A Propos</a>
+                <a href="#tab_competences" class="nav-item nav-link">Tableau de <br> compétences</a>
+                <a href="#rapports" class="nav-item nav-link">Rapports de <br> stage / alternance</a>
+                <a href="#competences" class="nav-item nav-link">Compétences</a>
                 <a href="#experience" class="nav-item nav-link">Parcours</a>
-                <a href="#portfolio" class="nav-item nav-link">Projets</a>
-                <!--<a href="#portfolio" class="nav-item nav-link">Veilles</a> -->
+                <a href="#veille" class="nav-item nav-link">Veille</a>
                 <a href="#footer" class="nav-item nav-link">Contact</a>
             </div>
         </div>
@@ -218,7 +226,7 @@
                             Cette épreuve est aussi accompagnée d'un tableau des compétences, compétences qui
                             devront être décrites et réalisées au cours des projets présentés.</p>
                         <br>
-                        <h4>Tableau de compétences</h4><br>
+                        <h4 id="tab_competences">Tableau de compétences</h4><br>
                         <div class="about-cv">
                             <table class="table table-bordered table-striped table-responsive">
                                 <thead class="thead-dark">
@@ -234,7 +242,9 @@
                                 </tr>
                                 </thead>
                                 <tr>
-                                    <th colspan="7" class="text-center bg-light" scope="row">Exemple de réalisation au cours de mon BTS <em style="color: grey; font-size: smaller">2022 - 2024</em></th>
+                                    <th colspan="7" class="text-center bg-light" scope="row">Exemple de réalisation au
+                                        cours de mon BTS <em style="color: grey; font-size: smaller">2022 - 2024</em>
+                                    </th>
                                 </tr>
                                 <tbody>
                                 <tr>
@@ -251,7 +261,11 @@
                                 <tr>
                                     <th scope="row">AP1 Site FAQ <br> &ensp;</th>
                                     <td class="w-25"></td>
-                                    <td class="w-25"></td>
+                                    <td class=" w-25 bg-warning text-center align-middle">
+                                        <a href="img/ProjetSLAM1siteFAQM2Laccueil.png"
+                                           data-lightbox="APSLAM">
+                                            <i class="fa-solid fa-image fa-2xl"></i></a>
+                                    </td>
                                     <td class="w-25"></td>
                                     <td class=" w-25 bg-warning text-center align-middle"><a
                                             href="https://github.com/LBouzac/SioSlamGroupe2" target="_blank"><i
@@ -301,15 +315,76 @@
                                     <td class="w-25"></td>
                                     <td class="w-25"></td>
                                 </tr>
+                                <tr>
+                                    <th scope="row">Yloop<br> &ensp;</th>
+                                    <td class=" w-25 bg-warning text-center align-middle">
+                                        <a href="img/Yloop1.jpg"
+                                           data-lightbox="Yloop">
+                                            <i class="fa-solid fa-image fa-2xl"></i></a>
+                                    </td>
+                                    <td class=" w-25 bg-warning text-center align-middle">
+                                        <a href="img/Stage2.png"
+                                           data-lightbox="Yloop">
+                                            <i class="fa-solid fa-image fa-2xl"></i></a>
+                                    </td>
+                                    <td class=" w-25 bg-warning text-center align-middle">
+                                        <a href="img/portfolio-3.jpg"
+                                           data-lightbox="Yloop">
+                                            <i class="fa-solid fa-image fa-2xl"></i></a>
+                                    </td>
+                                    <td class=" w-25 bg-warning text-center align-middle">
+                                        <a href="img/TrelloStage1.jpg"
+                                           data-lightbox="Yloop">
+                                            <i class="fa-solid fa-image fa-2xl"></i></a>
+                                    </td>
+                                    <td class=" w-25 bg-warning text-center align-middle">
+                                        <a href="img/Yloop1.jpg" data-lightbox="Yloop">
+                                            <i class="fa-solid fa-image fa-2xl"></i></a>
+                                    </td>
+                                    <td class=" w-25 bg-warning text-center align-middle">
+                                        <a href="https://www.yloop.app/" target="_blank">
+                                            <i class="fa-solid fa-arrow-up-right-from-square fa-2xl"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">AP2 site restoWeb <br> RestoSwing</th>
+                                    <td class="w-25"></td>
+                                    <td class=" w-25 bg-warning text-center align-middle">
+                                        <a href="img/AP2.PNG"
+                                           data-lightbox="APSLAM2">
+                                            <i class="fa-solid fa-image fa-2xl"></i></a>
+                                    </td>
+                                    <td class="w-25"></td>
+                                    <td class="w-25"></td>
+                                    <td class="w-25"></td>
+                                    <td class=" w-25 bg-warning text-center align-middle"><a
+                                            href="https://github.com/LoutrePasSauvage/B2SLAM-AppRestoWeb"
+                                            target="_blank"><i
+                                            class="fa-brands fa-github fa-2xl"></i></a></td>
+                                </tr>
                                 </tbody>
                             </table>
+
+                            <a href="img/ProjetSLAM1siteFAQM2LcodeModif.png" data-lightbox="APSLAM"></a>
+                            <a href="img/ProjetSLAM1siteFAQM2LgithubExempleTache.png" data-lightbox="APSLAM"></a>
+                            <a href="img/ProjetSLAM1siteFAQM2LinscriptionFull.png" data-lightbox="APSLAM"></a>
+
+                            <a href="img/AP2_2.PNG" data-lightbox="APSLAM2"></a>
+                            <a href="img/AP2_.PNG" data-lightbox="APSLAM2"></a>
+                            <a href="img/AP2_3.PNG" data-lightbox="APSLAM2"></a>
+                            <a href="img/AP2_4.PNG" data-lightbox="APSLAM2"></a>
+                            <a href="img/AP2_5.PNG" data-lightbox="APSLAM2"></a>
+                            <a href="img/AP2_6.PNG" data-lightbox="APSLAM2"></a>
+                            <a href="img/AP2_7.PNG" data-lightbox="APSLAM2"></a>
+
+
                             <a class="btn"
                                href="https://docs.google.com/spreadsheets/d/1p_iwDSmKwGvuExV7KO93X7hbUKzuYtPc/edit?usp=sharing&ouid=117775058994014217831&rtpof=true&sd=true"
                                target="_blank">Tableau de synthèse</a>
                         </div>
                         <br>
                         <br><br><br>
-                        <h2> Rapport de stage</h2>
+                        <h2 id="rapports"> Rapport de stage</h2>
                         <div class="row align-items-center">
                             <div class="col-lg-5">
 
@@ -336,7 +411,8 @@
                                 </div>
                             </div>
                             <div class="col-lg-5">
-                                <div class="about-content">
+
+                                <div class="about">
                                     <br>
                                     <br>
                                     <div class="about-content">
@@ -345,7 +421,10 @@
                                            target="_blank">2eme année &ensp; <i
                                                 class="fa-solid fa-arrow-up-right-from-square"></i></a>
                                         &ensp;
-                                        <div style="position: relative; width: 100%; height: 0; padding-top: 141.4286%; padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden; border-radius: 8px; will-change: transform;">
+
+                                        <div style="position: relative; width: 100%; height: 0; padding-top: 141.4286%;
+                                                padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+                                                border-radius: 8px; will-change: transform;">
                                             <iframe loading="lazy"
                                                     style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
                                                     src="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAFsXHOjI-Q&#x2F;view?embed"
@@ -360,11 +439,12 @@
                 </div>
             </section>
 
+
             <div class="swiper mySwiper">
                 <br>
                 <br>
                 <div class="section-header text-left">
-                    <h3>Mes compétences développement et réseaux</h3>
+                    <h3 id="competences">Mes compétences développement et réseaux</h3>
                     <p></p>
                 </div>
                 <div class="swiper-wrapper">
@@ -533,16 +613,16 @@
             <div class="timeline-item left wow slideInLeft" data-wow-delay="0.1s">
                 <div class="timeline-text">
                     <div class="timeline-date">2023 - 7 semaines</div>
-                    <h2>Develloper Web / Stagiaire</h3>
-                        <h4>GreenJuice, Toulouse, France</h4>
-                        <p>
-                            Création de Framework pour site internet de plusieurs clients. <br>
-                            Mise en place du flexbox et responsive pour les sites internet. <br>
-                        </p>
-                        <p>
-                            <a class="btn" href="https://greenjuice.fr/" target="_blank">Site entreprise &ensp; <i
-                                    class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                        </p>
+                    <h2>Develloper Web / Stagiaire</h2>
+                    <h4>GreenJuice, Toulouse, France</h4>
+                    <p>
+                        Création de Framework pour site internet de plusieurs clients. <br>
+                        Mise en place du flexbox et responsive pour les sites internet. <br>
+                    </p>
+                    <p>
+                        <a class="btn" href="https://greenjuice.fr/" target="_blank">Site entreprise &ensp; <i
+                                class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </p>
                 </div>
             </div>
             <div class="timeline-item right wow slideInRight" data-wow-delay="0.1s">
@@ -565,16 +645,16 @@
             <div class="timeline-item left wow slideInLeft" data-wow-delay="0.1s">
                 <div class="timeline-text">
                     <div class="timeline-date">2021 - 5 semaines</div>
-                    <h2>Stagiaire</h3>
-                        <h4>RTCA, Carcassonne, France</h4>
-                        <p>
-                            Installation de caméras, bornes de validations. <br>
-                            Réparations de caméras, bornes de validations. <br>
-                        </p>
-                        <p>
-                            <a class="btn" href="https://rtca.carcassonne-agglo.fr/" target="_blank">Site entreprise
-                                &ensp; <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                        </p>
+                    <h2>Stagiaire</h2>
+                    <h4>RTCA, Carcassonne, France</h4>
+                    <p>
+                        Installation de caméras, bornes de validations. <br>
+                        Réparations de caméras, bornes de validations. <br>
+                    </p>
+                    <p>
+                        <a class="btn" href="https://rtca.carcassonne-agglo.fr/" target="_blank">Site entreprise
+                            &ensp; <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </p>
                 </div>
             </div>
             <div class="timeline-item right wow slideInRight" data-wow-delay="0.1s">
@@ -596,32 +676,33 @@
             <div class="timeline-item left wow slideInLeft" data-wow-delay="0.1s">
                 <div class="timeline-text">
                     <div class="timeline-date">2020 - 5 semaines</div>
-                    <h2>Stagiaire</h3>
-                        <h4>RTCA, Carcassonne, France</h4>
-                        <p>
-                            Installation de caméras, bornes de validations. <br>
-                            Réparations de caméras, bornes de validations. <br>
-                        </p>
-                        <p>
-                            <a class="btn" href="https://rtca.carcassonne-agglo.fr/" target="_blank">Site entreprise
-                                &ensp; <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                        </p>
+                    <h2>Stagiaire</h2>
+                    <h4>RTCA, Carcassonne, France</h4>
+                    <p>
+                        Installation de caméras, bornes de validations. <br>
+                        Réparations de caméras, bornes de validations. <br>
+                    </p>
+                    <p>
+                        <a class="btn" href="https://rtca.carcassonne-agglo.fr/" target="_blank">Site entreprise
+                            &ensp; <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </p>
                 </div>
             </div>
             <div class="timeline-item right wow slideInRight" data-wow-delay="0.1s">
                 <div class="timeline-text">
                     <div class="timeline-date">2020 - 1 semaines</div>
-                    <h2>Stagiaire</h3>
-                        <h4>Agglomération, Carcassonne, France</h4>
-                        <p>
-                            Programmation d'un site en HTML et CSS. <br>
-                            Changement des composants défectueux. <br>
-                        </p>
-                        <p>
-                            <a class="btn" href="https://www.carcassonne-agglo.fr/fr/index.html"
-                               target="_blank">Site entreprise &ensp; <i
-                                    class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                        </p>
+                    <h2>Stagiaire</h2>
+                    <h4>Agglomération, Carcassonne, France</h4>
+                    <p>
+                        Programmation d'un site en HTML et CSS. <br>
+                        Changement des composants défectueux. <br>
+                    </p>
+                    <p>
+                        <a class="btn" href="https://www.carcassonne-agglo.fr/fr/index.html"
+                           target="_blank">Site entreprise &ensp;
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </p>
                 </div>
             </div>
         </div>
@@ -681,139 +762,9 @@
 </div>
 <!-- Experience End -->
 
-<!-- Portfolio Start -->
-<div class="portfolio" id="portfolio">
-    <div class="container">
-        <div class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
-            <h2>Mes projets</h2>
-            <p></p>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <ul id="portfolio-filter">
-                    <li data-filter="*" class="filter-active">Sans filtre</li>
-                    <li data-filter=".filter-1">Ecole</li>
-                    <li data-filter=".filter-2">Stage / Alternance</li>
-                    <!-- <li data-filter=".filter-3">Projet personnel</li> -->
-                </ul>
-            </div>
-        </div>
-        <div class="row portfolio-container">
-            <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-1 wow fadeInUp" data-wow-delay="0.0s">
-                <div class="portfolio-wrap">
-                    <div class="portfolio-img">
-                        <img src="img/portfolio-1.jpg" alt="Image">
-                    </div>
-                    <div class="portfolio-text">
-                        <h3>Site FAQ (Projet SLAM)</h3> &ensp;
-                        <a class="btn" href="https://github.com/Ludov1234/SioSlamGroupe2" target="_blank"><i
-                                class="fa-brands fa-github"></i>
-                        </a>
-                        &ensp;
-                        &ensp;<a class="btn" href="img/ProjetSLAM1siteFAQM2Laccueil.png" data-lightbox="portfolio">
-                        <i class="fa-solid fa-image fa-2xs"></i>
-                    </a>
-                        &ensp;
-
-                    </div>
-                    &ensp;<a href="img/ProjetSLAM1siteFAQM2LcodeModif.png" data-lightbox="portfolio"></a>
-                    &ensp;<a href="img/ProjetSLAM1siteFAQM2LgithubExempleTache.png" data-lightbox="portfolio"></a>
-                    &ensp;<a href="img/ProjetSLAM1siteFAQM2LinscriptionFull.png" data-lightbox="portfolio"></a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-1 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="portfolio-wrap">
-                    <div class="portfolio-img">
-                        <img src="img/portfolio-2.jpg" alt="Image">
-                    </div>
-                    <div class="portfolio-text">
-                        <h3>PortFolio</h3> &ensp;
-                        <a class="btn" href="https://github.com/Ludov1234/PortFolio" target="_blank"><i
-                                class="fa-brands fa-github"></i></a>
-                        &ensp;
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-2 wow fadeInUp" data-wow-delay="0.8s">
-                <div class="portfolio-wrap">
-                    <div class="portfolio-img">
-                        <img src="img/Yloop1.JPG" alt="Image">
-                    </div>
-                    <div class="portfolio-text">
-                        <h3>Yloop</h3>
-                        <a class="btn" href="https://www.yloop.app/" target="_blank">
-                            <i class="fa-solid fa-arrow-up-right-from-square fa-2xs"></i></a>
-                        &ensp;
-                        <a class="btn" href="img/TrelloStage1.jpg" data-lightbox="portfolio">
-                            <i class="fa-solid fa-image fa-2xs"></i>
-                            <a href="img/Stage2.png" data-lightbox="portfolio">
-                                <a href="img/Yloop1.jpg" data-lightbox="portfolio">
-                                    <a href="img/portfolio-3.jpg" data-lightbox="portfolio">
-
-                                    </a>&ensp;
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-1 wow fadeInUp" data-wow-delay="0.4s">
-                <div class="portfolio-wrap">
-                    <div class="portfolio-img">
-                        <img src="img/glpi.png" alt="Image">
-                    </div>
-                    <div class="portfolio-text">
-                        <h3>GLPI</h3>
-                        <a class="btn" href="img/glpi.png" data-lightbox="portfolio">
-                            <i class="fa-solid fa-image fa-2xs"></i>
-                            <a href="img/glpi1.png" data-lightbox="portfolio">
-                                <a href="img/glpi2.png" data-lightbox="portfolio">
-                                </a>
-                                &ensp;
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-1 wow fadeInUp" data-wow-delay="0.6s">
-                <div class="portfolio-wrap">
-                    <div class="portfolio-img">
-                        <img src="img/BDD.jpg" alt="Image">
-                    </div>
-                    <div class="portfolio-text">
-                        <h3>Création de BDD</h3>
-                        <a class="btn" href="img/BDD.jpg" data-lightbox="portfolio">
-                            <i class="fa-solid fa-image fa-2xs"></i>
-                            <a href="img/BDD1.jpg" data-lightbox="portfolio">
-                            </a>
-                    </div>
-                </div>
-            </div>
-            <!-- <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-2 wow fadeInUp" data-wow-delay="0.8s">
-                <div class="portfolio-wrap">
-                    <div class="portfolio-img">
-                        <img src="img/portfolio-5.jpg" alt="Image">
-                    </div>
-                    <div class="portfolio-text">
-                        <h3>Social Mobile Apps</h3>
-                        <a class="btn" href="img/portfolio-5.jpg" data-lightbox="portfolio">+</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-3 wow fadeInUp" data-wow-delay="1s">
-                <div class="portfolio-wrap">
-                    <div class="portfolio-img">
-                        <img src="img/portfolio-6.jpg" alt="Image">
-                    </div>
-                    <div class="portfolio-text">
-                        <h3>Company Website</h3>
-                        <a class="btn" href="img/portfolio-6.jpg" data-lightbox="portfolio">+</a>
-                    </div>
-                </div>
-            </div> -->
-        </div>
-    </div>
-</div>
-<!-- Portfolio End -->
-
-<!-- Blog Start
+<!-- Blog Start -->
 <div class="blog" id="blog">
-    <div class="container">
+    <div class="container" id="veille">
         <div class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
             <h2>Veille Technologique</h2>
             <p></p>
@@ -1050,7 +1001,7 @@
         </div>
     </div>
 </div>
- Blog End -->
+<!-- Blog End -->
 
 <!-- Contact Start -->
 <!-- <div class="contact wow fadeInUp" data-wow-delay="0.1s" id="contact">
