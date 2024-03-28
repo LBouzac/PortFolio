@@ -1,0 +1,10 @@
+RewriteEngine On
+# Si la requête n'est pas pour un fichier réel
+RewriteCond %{REQUEST_FILENAME} !-f
+# Si la requête n'est pas pour un répertoire réel
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^(autre|css|js|img|lib|mail)/ - [L]
+# Rediriger la requête vers index.php
+RewriteRule ^ index.php [L]
+

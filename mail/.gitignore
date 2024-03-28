@@ -1,0 +1,29 @@
+# Fichiers de configuration de l'IDE
+.idea/
+.vscode/
+
+# Dossiers de dépendances
+node_modules/
+vendor/
+
+# Fichiers de logs
+*.log
+
+# Fichiers temporaires
+*.tmp
+*.temp
+
+# Fichiers de cache
+cache/
+*.cache
+
+# Fichiers de build
+dist/
+
+# Fichiers générés par PHP
+composer.lock
+composer.phar
+
+# Fichiers générés par JavaScript
+package-lock.json
+yarn.lock
