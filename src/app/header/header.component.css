@@ -1,0 +1,90 @@
+/* Reset de base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+}
+
+/* Styles du header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Styles du logo */
+.logo h1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #000000;
+}
+
+/* Styles de la navigation */
+nav ul {
+  display: flex;
+  list-style: none;
+}
+
+nav ul li {
+  margin-left: 30px;
+}
+
+nav ul li:first-child {
+  margin-left: 0;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #555555;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 5px 0;
+  transition: color 0.3s;
+}
+
+nav ul li a:hover {
+  color: #1c00ff;
+}
+
+nav ul li a.active {
+  color: #1c00ff;
+  position: relative;
+}
+
+nav ul li a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #1c00ff;
+}
+
+/* Style responsive */
+@media screen and (max-width: 768px) {
+  header {
+    flex-direction: column;
+    padding: 15px;
+  }
+
+  .logo {
+    margin-bottom: 15px;
+  }
+
+  nav ul {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  nav ul li {
+    margin-left: 15px;
+  }
+}

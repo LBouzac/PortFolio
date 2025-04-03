@@ -1,0 +1,66 @@
+/* Style général pour la section Veille Technologique */
+#veille-techno {
+  margin: 40px;
+  padding: 30px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Titre de la section */
+#veille-techno h2 {
+  text-align: center;
+  color: #333;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+/* Description sous le titre */
+#veille-techno p {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+/* Conteneur des articles de veille */
+.veille-item {
+  background-color: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.veille-item h3 {
+  color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.veille-item p {
+  color: #555;
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+/* Bouton pour lire l'article */
+.voir-veille {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 1rem;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.voir-veille:hover {
+  background-color: #45a049;
+}
+
+/* Ajout d'un espacement en bas */
+#veille-techno .veille-item:last-child {
+  margin-bottom: 0;
+}

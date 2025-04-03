@@ -1,0 +1,58 @@
+.accueil-container {
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+header h1 {
+  font-size: 36px;
+  color: #333;
+}
+
+header p {
+  font-size: 18px;
+  color: #666;
+}
+
+.about, .projects {
+  margin-bottom: 40px;
+}
+
+.about h2, .projects h2 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.about p, .projects .project-item p {
+  font-size: 16px;
+  color: #666;
+}
+
+.projects .project-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.projects .project-item {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: calc(50% - 20px);
+}
+
+footer {
+  text-align: center;
+  margin-top: 40px;
+}
+
+footer p {
+  font-size: 16px;
+  color: #666;
+}
