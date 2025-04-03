@@ -1,81 +1,77 @@
-/* Style général pour la section Projets */
-#projets {
-  margin: 40px;
-  padding: 30px;
-  background-color: #f4f4f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* Importation des styles de Swiper */
+@import 'swiper/css';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
+
+.projets-container {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* Titre de la section */
-#projets h2 {
+.projets-container h2 {
   text-align: center;
-  color: #333;
-  font-size: 2rem;
-  margin-bottom: 20px;
-}
-
-/* Description sous le titre */
-#projets p {
-  text-align: center;
-  font-size: 1.1rem;
-  color: #555;
   margin-bottom: 30px;
 }
 
-/* Conteneur des projets */
-.projet {
+.projet-card {
+  border-radius: 12px;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  height: 320px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-bottom: 30px;
-  background-color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin: 10px;
+}
+
+.projet-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
+}
+
+.projet-card img {
+  height: 160px;
+  object-fit: cover;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-}
-
-/* Image du projet */
-.projet-img {
-  width: 100%;
-  height: auto;
-  transition: transform 0.3s ease;
-}
-
-/* Effet de zoom sur l'image au survol */
-.projet-img:hover {
-  transform: scale(1.05);
-}
-
-/* Informations sur le projet */
-.projet-info {
-  padding: 20px;
-  text-align: center;
-}
-
-.projet-info h3 {
-  color: #333;
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-}
-
-.projet-info p {
-  color: #555;
-  font-size: 1rem;
   margin-bottom: 15px;
 }
 
-.voir-projet {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
-  font-size: 1rem;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+.projet-card h3 {
+  font-weight: 600;
+  margin-bottom: 8px;
 }
 
-.voir-projet:hover {
-  background-color: #45a049;
+swiper-container {
+  width: 100%;
+  height: 380px;
+  padding: 10px 40px;
+}
+
+swiper-slide {
+  width: calc(25% - 20px) !important; /* Pour afficher exactement 4 slides */
+  display: flex;
+  justify-content: center;
+}
+
+/* Personnalisation des boutons de navigation */
+swiper-container::part(button-prev),
+swiper-container::part(button-next) {
+  color: #333;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+/* Personnalisation des points de pagination */
+swiper-container::part(bullet) {
+  background-color: #ccc;
+  opacity: 0.6;
+}
+
+swiper-container::part(bullet-active) {
+  background-color: #333;
+  opacity: 1;
 }

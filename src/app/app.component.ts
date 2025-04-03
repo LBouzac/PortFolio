@@ -16,7 +16,7 @@ import { FooterComponent } from './footer/footer.component';
     :host {
       display: block;
       min-height: 100vh;
-      background-color: #f8f5ff;
+      background-color: white;
     }
   `]
 })
