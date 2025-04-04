@@ -1,34 +1,42 @@
-/* Importation des styles de Swiper */
-@import 'swiper/css';
-@import 'swiper/css/navigation';
-@import 'swiper/css/pagination';
+:root {
+  --primary-color: #333333; /* Couleur du texte principale */
+  --secondary-color: #666666; /* Couleur du texte secondaire */
+  --background-color: #ffffff; /* Couleur de fond */
+  --box-shadow-color: rgba(0, 0, 0, 0.1); /* Ombre légère */
+  --hover-box-shadow-color: rgba(0, 0, 0, 0.15); /* Ombre au survol */
+  --transition-duration: 0.3s;
+  --padding: 20px;
+  --margin: 10px;
+}
 
 .projets-container {
   padding: 40px 20px;
   max-width: 1200px;
   margin: 0 auto;
+  background-color: var(--background-color);
 }
 
 .projets-container h2 {
   text-align: center;
   margin-bottom: 30px;
+  color: var(--primary-color);
 }
 
 .projet-card {
   border-radius: 12px;
-  padding: 20px;
-  background-color: #ffffff;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
-  height: 320px;
+  padding: var(--padding);
+  background-color: var(--background-color);
+  /*box-shadow: 0 8px 16px var(--box-shadow-color);*/
+  height: 300px;
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  margin: 10px;
+  transition: transform var(--transition-duration) ease, box-shadow var(--transition-duration) ease;
+  margin: var(--margin);
 }
 
 .projet-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
+  /*box-shadow: 0 8px 16px var(--hover-box-shadow-color);*/
 }
 
 .projet-card img {
@@ -41,37 +49,21 @@
 .projet-card h3 {
   font-weight: 600;
   margin-bottom: 8px;
+  color: var(--primary-color);
+}
+
+.projet-card p {
+  color: var(--secondary-color);
 }
 
 swiper-container {
   width: 100%;
-  height: 380px;
+  height: 350px;
   padding: 10px 40px;
 }
 
 swiper-slide {
-  width: calc(25% - 20px) !important; /* Pour afficher exactement 4 slides */
+  width: 25rem;
   display: flex;
   justify-content: center;
-}
-
-/* Personnalisation des boutons de navigation */
-swiper-container::part(button-prev),
-swiper-container::part(button-next) {
-  color: #333;
-  background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-}
-
-/* Personnalisation des points de pagination */
-swiper-container::part(bullet) {
-  background-color: #ccc;
-  opacity: 0.6;
-}
-
-swiper-container::part(bullet-active) {
-  background-color: #333;
-  opacity: 1;
 }

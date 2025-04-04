@@ -1,7 +1,6 @@
 <swiper-container
   slides-per-view="3"
   space-between="20"
-  navigation="true"
   loop="true"
   loop-additional-slides="2"
   loop-fill-group-with-blank="true"
@@ -19,6 +18,7 @@
       <img [src]="projet.image" [alt]="projet.titre">
       <h3>{{ projet.titre }}</h3>
       <p>{{ projet.description }}</p>
+      <a [href]="projet.lien" target="_blank">Lien du projet</a>
     </div>
   </swiper-slide>
 </swiper-container>

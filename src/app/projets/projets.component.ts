@@ -16,9 +16,10 @@ export class ProjetsComponent implements OnInit {
   projets = [
     {
       id: 1,
-      titre: 'Projet 1',
-      description: 'Description du projet 1',
-      image: 'assets/img/projet1.png'
+      titre: 'TP BTS SIO SLAM',
+      description: 'Description du projet 1, blalablablalablablalablablalablablalabla',
+      image: 'assets/img/projet1.png',
+      lien:  'https://github.com/LoutrePasSauvage/B2SLAM-AppRestoWeb'
     },
     {
       id: 2,
