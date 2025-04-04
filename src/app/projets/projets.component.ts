@@ -18,31 +18,43 @@ export class ProjetsComponent implements OnInit {
       id: 1,
       titre: 'Projet 1',
       description: 'Description du projet 1',
-      image: 'assets/images/projet1.jpg'
+      image: 'assets/img/projet1.png'
     },
     {
       id: 2,
       titre: 'Projet 2',
       description: 'Description du projet 2',
-      image: 'assets/images/projet2.jpg'
+      image: 'assets/images/projet2.png'
     },
     {
       id: 3,
       titre: 'Projet 3',
       description: 'Description du projet 3',
-      image: 'assets/images/projet3.jpg'
+      image: 'assets/images/projet3.png'
     },
     {
       id: 4,
-      titre: 'Projet 3',
-      description: 'Description du projet 3',
-      image: 'assets/images/projet3.jpg'
+      titre: 'Projet 4',
+      description: 'Description du projet 4',
+      image: 'assets/images/projet4.png'
     },
     {
-      id: 3,
-      titre: 'Projet 3',
-      description: 'Description du projet 3',
-      image: 'assets/images/projet3.jpg'
+      id: 5,
+      titre: 'Projet 5',
+      description: 'Description du projet 5',
+      image: 'assets/images/projet5.jpg'
+    },
+    {
+      id: 6,
+      titre: 'Projet 6',
+      description: 'Description du projet 6',
+      image: 'assets/images/projet6.jpg'
+    },
+    {
+      id: 7,
+      titre: 'Projet 7',
+      description: 'Description du projet 7',
+      image: 'assets/images/projet7.jpg'
     }
   ];
 
