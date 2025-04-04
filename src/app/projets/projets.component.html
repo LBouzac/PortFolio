@@ -1,19 +1,24 @@
-<div class="projets-container">
-  <h2>Mes Projets</h2>
-
-  <swiper-container
-    slides-per-view="4"
-    space-between="20"
-    pagination="true"
-    navigation="true">
-
-    <swiper-slide *ngFor="let projet of projets">
-      <div class="projet-card">
-        <img [src]="projet.image" [alt]="projet.titre">
-        <h3>{{ projet.titre }}</h3>
-        <p>{{ projet.description }}</p>
-      </div>
-    </swiper-slide>
-
-  </swiper-container>
-</div>
+<swiper-container
+  slides-per-view="3"
+  space-between="20"
+  navigation="true"
+  loop="true"
+  loop-additional-slides="2"
+  loop-fill-group-with-blank="true"
+  speed="600"
+  autoplay="{ delay: 3000 }"
+  effect="coverflow"
+  grab-cursor="true"
+  keyboard="true"
+  mousewheel="true"
+  lazy="true"
+  looped="true"
+>
+  <swiper-slide *ngFor="let projet of projets">
+    <div class="projet-card">
+      <img [src]="projet.image" [alt]="projet.titre">
+      <h3>{{ projet.titre }}</h3>
+      <p>{{ projet.description }}</p>
+    </div>
+  </swiper-slide>
+</swiper-container>
