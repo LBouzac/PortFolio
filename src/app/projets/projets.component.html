@@ -1,24 +1,37 @@
-<swiper-container
-  slides-per-view="3"
-  space-between="20"
-  loop="true"
-  loop-additional-slides="2"
-  loop-fill-group-with-blank="true"
-  speed="600"
-  autoplay="{ delay: 3000 }"
-  effect="coverflow"
-  grab-cursor="true"
-  keyboard="true"
-  mousewheel="true"
-  lazy="true"
-  looped="true"
->
-  <swiper-slide *ngFor="let projet of projets">
-    <div class="projet-card">
-      <img [src]="projet.image" [alt]="projet.titre">
-      <h3>{{ projet.titre }}</h3>
-      <p>{{ projet.description }}</p>
-      <a [href]="projet.lien" target="_blank">Lien du projet</a>
-    </div>
-  </swiper-slide>
-</swiper-container>
+<section class="projets-section">
+  <h2>Mes Projets</h2>
+
+  <div class="swiper-wrapper">
+    <swiper-container
+      slides-per-view="auto"
+      space-between="30"
+      loop="true"
+      loop-additional-slides="2"
+      centered-slides="true"
+      speed="600"
+      autoplay="{ delay: 3000 }"
+      effect="coverflow"
+      grab-cursor="true"
+      keyboard="true"
+      mousewheel="true"
+      lazy="true"
+      coverflow-effect-rotate="5"
+      coverflow-effect-depth="100"
+    >
+      <swiper-slide *ngFor="let projet of projets">
+        <div class="projet-card">
+          <div class="projet-image">
+            <img [src]="projet.image" [alt]="projet.titre">
+          </div>
+          <div class="projet-content">
+            <h3>{{ projet.titre }}</h3>
+            <p>{{ projet.description }}</p>
+            <div class="projet-actions">
+              <a [href]="projet.lien" target="_blank">Voir le projet</a>
+            </div>
+          </div>
+        </div>
+      </swiper-slide>
+    </swiper-container>
+  </div>
+</section>

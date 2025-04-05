@@ -1,12 +1,22 @@
 <div class="accueil-container">
-  <div class="bg-image"></div>
-  <header>
-    <h1>Bienvenue sur mon Portfolio</h1>
-    <h2>Développeur web et logiciel passionné par la créativité et l'innovation.
-      Je suis à la recherche d'une alternance pour mes études d'Ingénieur Développeur.</h2>
-  </header>
-</div>
+  <div class="video-background">
+    <video autoplay muted loop playsinline controls>
+      <source src="assets/videos/nasa-video.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+  </div>
 
+  <div class="hero-content">
+    <div class="hero-text">
+      <h1 class="animate-slide-up">Bienvenue sur mon Portfolio</h1>
+      <h2 class="animate-slide-up delay-1">Développeur web et logiciel passionné par la créativité et l'innovation.</h2>
+      <p class="subtitle animate-slide-up delay-2">Futur ingénieur en développement à la recherche d'une opportunité d'alternance enrichissante.</p>
+      <div class="cta-buttons animate-fade-in delay-3">
+        <a routerLink="/projets" routerLinkActive="active" class="btn btn-primary">Voir mes projets</a>
+        <a routerLink="/contact" routerLinkActive="active" class="btn btn-outline">Me contacter</a>
+      </div>
+    </div>
+  </div>
+</div>
 <app-projets></app-projets>
-<app-competences></app-competences>
 <app-contact></app-contact>

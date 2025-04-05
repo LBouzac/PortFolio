@@ -1,13 +1,21 @@
-<header>
-  <div class="logo">
-    <h1>PortFolio</h1>
+<header class="main-header">
+  <div class="container">
+    <div class="logo animate-slide-down">
+      <h1>Port<span class="accent">Folio</span></h1>
+    </div>
+
+    <div class="mobile-toggle" (click)="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <nav [class.active]="menuActive">
+      <ul>
+        <li><a routerLink="/accueil" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link animate-fade-in">Accueil</a></li>
+        <li><a routerLink="/projets" routerLinkActive="active" class="nav-link animate-fade-in delay-1">Projets</a></li>
+        <li><a routerLink="/contact" routerLinkActive="active" class="contact-btn animate-fade-in delay-2">Contact</a></li>
+      </ul>
+    </nav>
   </div>
-  <nav>
-    <ul>
-      <li><a routerLink="/accueil" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Accueil</a></li>
-      <li><a routerLink="/competences" routerLinkActive="active">Compétences</a></li>
-      <li><a routerLink="/projets" routerLinkActive="active">Projets</a></li>
-      <li><a routerLink="/contact" routerLinkActive="active">Contact</a></li>
-    </ul>
-  </nav>
 </header>
