@@ -21,7 +21,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build -- --configuration=production --base-href="https://lbouzac.github.io/PortFolio-app/"
+        run: npm run build -- --configuration=production --base-href="https://lbouzac.github.io/PortFolio/"
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
