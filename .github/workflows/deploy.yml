@@ -28,3 +28,4 @@ jobs:
         with:
           folder: dist/port-folio-app
           branch: gh-pages
+          token: ${{ secrets.ACTIONS_DEPLOY_KEY }}
