@@ -16,46 +16,30 @@ export class ProjetsComponent implements OnInit {
   projets = [
     {
       id: 1,
-      titre: 'TP BTS SIO SLAM',
-      description: 'Description du projet 1, blalablablalablablalablablalablablalabla',
+      titre: 'AppRestoWeb',
+      description: 'Projet de seconde année de BTS SIO en B2 SLAM Atelier Professionnel, fait avec PHP, SQL.',
       image: 'assets/img/projet1.png',
-      lien:  'https://github.com/LoutrePasSauvage/B2SLAM-AppRestoWeb'
+      github:  'https://github.com/LoutrePasSauvage/B2SLAM-AppRestoWeb'
     },
     {
       id: 2,
-      titre: 'Projet 2',
-      description: 'Description du projet 2',
-      image: 'assets/images/projet2.png'
+      titre: 'AppRestoSwing',
+      description: 'Projet de seconde année de BTS SIO en B2 SLAM Atelier Professionnel, fait avec Java, JSON.',
+      image: 'assets/img/projet2.png',
+      github: 'https://github.com/LoutrePasSauvage/B2SLAM-AppRestoSwing'
     },
     {
       id: 3,
-      titre: 'Projet 3',
-      description: 'Description du projet 3',
-      image: 'assets/images/projet3.png'
+      titre: 'Site Variations Horaires',
+      description: 'Site de gestion des horaires de travail, durant mon alternance chez l\'ANRAS, fait avec PHP, SQL.',
+      image: 'assets/img/projet3.png'
     },
     {
       id: 4,
-      titre: 'Projet 4',
-      description: 'Description du projet 4',
-      image: 'assets/images/projet4.png'
-    },
-    {
-      id: 5,
-      titre: 'Projet 5',
-      description: 'Description du projet 5',
-      image: 'assets/images/projet5.jpg'
-    },
-    {
-      id: 6,
-      titre: 'Projet 6',
-      description: 'Description du projet 6',
-      image: 'assets/images/projet6.jpg'
-    },
-    {
-      id: 7,
-      titre: 'Projet 7',
-      description: 'Description du projet 7',
-      image: 'assets/images/projet7.jpg'
+      titre: 'M2L',
+      description: 'Projet de première année de BTS SIO en B1 SLAM Atelier Professionnel, fait avec PHP, SQL.',
+      image: 'assets/img/projet4.png',
+      github: 'https://github.com/LBouzac/SioSlamGroupe2'
     }
   ];
 

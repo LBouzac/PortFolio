@@ -27,7 +27,12 @@
             <h3>{{ projet.titre }}</h3>
             <p>{{ projet.description }}</p>
             <div class="projet-actions">
-              <a [href]="projet.lien" target="_blank">Voir le projet</a>
+              <div class="projet-actions">
+                <a *ngIf="projet.github" [href]="projet.github" target="_blank">Voir le code</a>
+<!--                <a *ngIf="projet.lien" [href]="projet.lien" target="_blank">Voir le projet</a>-->
+<!--                <span *ngIf="!projet.github && !projet.lien">Aucun lien disponible</span>-->
+                <span *ngIf="!projet.github">Aucun lien disponible</span>
+              </div>
             </div>
           </div>
         </div>
