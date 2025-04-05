@@ -40,7 +40,21 @@ export class ProjetsComponent implements OnInit {
       description: 'Projet de première année de BTS SIO en B1 SLAM Atelier Professionnel, fait avec PHP, SQL.',
       image: 'assets/img/projet4.png',
       github: 'https://github.com/LBouzac/SioSlamGroupe2'
-    }
+    },
+    {
+      id: 5,
+      titre: 'PyChess',
+      description: 'Projet personnel de création d\'un jeu d\'échec fait avec Python.',
+      image: 'assets/img/projet6.png',
+      github: 'https://github.com/LBouzac/PyChess'
+    },
+    {
+      id: 6,
+      titre: 'PythonBF',
+      description: 'Projet personnel de création d\'un brute force fait avec Python.',
+      image: 'assets/img/projet5.png',
+      github: 'https://github.com/LBouzac/PythonBF'
+    },
   ];
 
   ngOnInit() {
