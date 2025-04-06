@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewEncapsulation, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, CUSTOM_ELEMENTS_SCHEMA, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { register } from 'swiper/element/bundle';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-projets',
@@ -9,10 +10,14 @@ import { register } from 'swiper/element/bundle';
   templateUrl: './projets.component.html',
   styleUrl: './projets.component.css',
   encapsulation: ViewEncapsulation.None,
-  schemas: [CUSTOM_ELEMENTS_SCHEMA] // Ajout du schéma pour les éléments web personnalisés
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ProjetsComponent implements OnInit {
+  @Input() isHomePage: boolean = false;
 
+  isProjectsPage: boolean = false;
+
+  constructor(private router: Router) {}
   projets = [
     {
       id: 1,
@@ -81,5 +86,8 @@ export class ProjetsComponent implements OnInit {
   ngOnInit() {
     // Enregistrer les éléments personnalisés Swiper
     register();
+
+    // Détecter si nous sommes sur la page des projets
+    this.isProjectsPage = this.router.url === '/projets';
   }
 }
