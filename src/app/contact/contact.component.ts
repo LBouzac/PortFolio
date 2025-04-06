@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import emailjs from '@emailjs/browser';
 import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.css']
+  styleUrls: ['./contact.component.css'],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class ContactComponent {
   loading = false;
@@ -32,6 +35,9 @@ export class ContactComponent {
       if (result.text === 'OK') {
         this.success = true;
         form.reset();
+      } else {
+        this.error = true;
+        console.error('Erreur d\'envoi:', result);
       }
     } catch (error) {
       this.error = true;
