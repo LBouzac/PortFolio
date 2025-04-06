@@ -39,7 +39,7 @@
 
 .hero-content {
   position: relative;
-  width: 100%;
+  /*width: 100%;*/
   height: 100%;
   display: flex;
   align-items: center;
@@ -158,35 +158,98 @@
   }
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
   .hero-text {
     padding: 1.5rem;
+    width: 90%;
+    max-width: 100%;
+  }
+
+  .accueil-container {
+    min-height: calc(100vh - 100px);
   }
 
   .cta-buttons {
     flex-direction: column;
     align-items: center;
     gap: 0.8rem;
-    width: 85%;
+    width: 100%;
   }
 
   .btn {
     width: 100%;
+    max-width: 250px;
     text-align: center;
   }
 }
 
 @media (max-width: 576px) {
+  .hero-text {
+    padding: 1rem;
+    width: 95%;
+  }
+
+  .accueil-container {
+    min-height: calc(100vh - 80px);
+  }
+
   .hero-text h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
   }
 
   .hero-text h2 {
     font-size: 1rem;
+    margin-bottom: 0.5rem;
   }
 
   .subtitle {
     font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .cta-buttons {
+    margin-top: 1rem;
+  }
+
+  .btn {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .accueil-container {
+    min-height: calc(100vh - 60px);
+  }
+
+  .hero-text {
+    padding: 0.8rem;
+  }
+
+  .hero-text h1 {
+    font-size: 1.5rem;
+  }
+
+  .hero-text h2 {
+    font-size: 0.9rem;
+  }
+
+  .subtitle {
+    font-size: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .btn {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .video-background video {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
   }
 }

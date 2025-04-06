@@ -141,7 +141,6 @@ nav ul {
   }
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .mobile-toggle {
     display: flex;
