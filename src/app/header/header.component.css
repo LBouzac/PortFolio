@@ -111,6 +111,23 @@ nav ul {
   animation: slideDown 0.8s ease forwards;
 }
 
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo-icon {
+  height: 32px;
+  width: auto;
+}
+
+@media (max-width: 576px) {
+  .logo-icon {
+    height: 24px;
+  }
+}
+
 .animate-fade-in {
   opacity: 0;
   animation: fadeIn 0.8s ease forwards;
