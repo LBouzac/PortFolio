@@ -5,7 +5,6 @@
 }
 
 .projets-section {
-  max-width: 1200px;
   margin: 0 auto;
   padding: 4rem 20px;
   text-align: center;
@@ -151,11 +150,6 @@ swiper-slide {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-swiper-slide {
-  animation: fadeInUp 0.6s ease-out;
-  animation-fill-mode: both;
 }
 
 swiper-slide:nth-child(2) {
