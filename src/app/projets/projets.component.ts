@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation, CUSTOM_ELEMENTS_SCHEMA, Input } f
 import { CommonModule } from '@angular/common';
 import { register } from 'swiper/element/bundle';
 import { Router } from '@angular/router';
+import { ProjetService } from '../services/projet.service';
 
 @Component({
   selector: 'app-projets',
@@ -12,82 +13,55 @@ import { Router } from '@angular/router';
   encapsulation: ViewEncapsulation.None,
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
+
 export class ProjetsComponent implements OnInit {
   @Input() isHomePage: boolean = false;
 
   isProjectsPage: boolean = false;
+  projetsFiltres: any[] = [];
+  filtresActifs: string[] = [];
+  categories: string[] = ['Ecole', 'Personnel', 'Alternance'];
+  projets: any[] = [];
 
-  constructor(private router: Router) {}
-  projets = [
-    {
-      id: 1,
-      titre: 'AppRestoWeb',
-      description: 'Projet de seconde année de BTS SIO en B2 SLAM Atelier Professionnel, fait avec PHP, SQL.',
-      image: 'assets/img/projet1.png',
-      github:  'https://github.com/LoutrePasSauvage/B2SLAM-AppRestoWeb'
-    },
-    {
-      id: 2,
-      titre: 'AppRestoSwing',
-      description: 'Projet de seconde année de BTS SIO en B2 SLAM Atelier Professionnel, fait avec Java, JSON.',
-      image: 'assets/img/projet2.png',
-      github: 'https://github.com/LoutrePasSauvage/B2SLAM-AppRestoSwing'
-    },
-    {
-      id: 3,
-      titre: 'Path of the Loner\n',
-      description: 'Projet scolaire de création d\'un jeu RPG textuel, fait avec Python.',
-      image: 'assets/img/projet3.png',
-      github: 'https://github.com/LBouzac/path-of-the-loner'
-    },
-    {
-      id: 4,
-      titre: 'Covid-19',
-      description: 'Projet scolaire de création d\'une application web sur la Covid-19, fait avec Angular.',
-      image: 'assets/img/projet4.png',
-      github: 'https://github.com/LBouzac/Angular-CDAN-Cours'
-    },
-    {
-      id: 5,
-      titre: 'PythonBF',
-      description: 'Projet personnel de création d\'un brute force fait avec Python.',
-      image: 'assets/img/projet5.png',
-      github: 'https://github.com/LBouzac/PythonBF'
-    },
-    {
-      id: 6,
-      titre: 'PyChess',
-      description: 'Projet personnel de création d\'un jeu d\'échec fait avec Python.',
-      image: 'assets/img/projet6.png',
-      github: 'https://github.com/LBouzac/PyChess'
-    },
-    {
-      id: 7,
-      titre: 'Kotlin API',
-      description: 'Projet scolaire de création d\'une application et utilisation d\'une API en Kotlin.',
-      image: 'assets/img/projet7.png',
-      github: 'https://github.com/LBouzac/TP_Kotlin_API'
-    },
-    {
-      id: 8,
-      titre: 'Site Variations Horaires',
-      description: 'Site de gestion des horaires de travail, durant mon alternance chez l\'ANRAS, fait avec PHP, SQL.',
-      image: 'assets/img/projet8.png'
-    },
-    {
-      id: 9,
-      titre: 'M2L',
-      description: 'Projet de première année de BTS SIO en B1 SLAM Atelier Professionnel, fait avec PHP, SQL.',
-      image: 'assets/img/projet9.png',
-      github: 'https://github.com/LBouzac/SioSlamGroupe2'
-    },
-  ];
+  constructor(
+    private router: Router,
+    private projetService: ProjetService
+  ) {}
 
   ngOnInit() {
-    // Enregistrer les éléments personnalisés Swiper
     register();
-
-    // Détecter si nous sommes sur la page des projets
     this.isProjectsPage = this.router.url === '/projets';
+
+    // Charger les projets depuis le service
+    this.projetService.getProjets().subscribe(data => {
+      this.projets = data;
+      this.projetsFiltres = this.projets;
+    });
+  }
+  // Nouvelle méthode pour gérer les sélections multiples
+  filtrerProjets(categorie: string): void {
+    const index = this.filtresActifs.indexOf(categorie);
+
+    if (index === -1) {
+      // Ajouter la catégorie si elle n'est pas déjà sélectionnée
+      this.filtresActifs.push(categorie);
+    } else {
+      // Retirer la catégorie si elle est déjà sélectionnée
+      this.filtresActifs.splice(index, 1);
+    }
+
+    // Filtrer les projets selon les catégories sélectionnées
+    if (this.filtresActifs.length > 0) {
+      this.projetsFiltres = this.projets.filter(projet =>
+        this.filtresActifs.includes(projet.categories)
+      );
+    } else {
+      // Si aucun filtre actif, afficher tous les projets tous les selectionnés
+      this.projetsFiltres = this.projets;
+    }
+  }
+  // Méthode utilitaire pour vérifier si une catégorie est sélectionnée
+  estCategorieActive(categorie: string): boolean {
+    return this.filtresActifs.includes(categorie);
   }
 }

@@ -1,6 +1,14 @@
 <section class="projets-section">
   <h2>Mes Projets</h2>
-
+  <!-- Affichage Galerie (pour la page projets) -->
+  <div *ngIf="isProjectsPage && !isHomePage" class="projets-galerie">
+    <!-- Système de filtrage -->
+    <div class="filtres">
+      <label><input type="checkbox" class="filtre-btn" [class.actif]="estCategorieActive('Ecole')" (click)="filtrerProjets('Ecole')">École</label>
+      <label><input type="checkbox" class="filtre-btn" [class.actif]="estCategorieActive('Personnel')" (click)="filtrerProjets('Personnel')">Personnel</label>
+      <label><input type="checkbox" class="filtre-btn" [class.actif]="estCategorieActive('Alternance')" (click)="filtrerProjets('Alternance')">Alternance</label>
+    </div>
+  </div>
   <!-- Affichage Carrousel (pour la page d'accueil) -->
   <div *ngIf="isHomePage || !isProjectsPage" class="swiper-wrapper">
     <swiper-container
@@ -42,7 +50,7 @@
 
   <!-- Affichage Galerie (pour la page projets) -->
   <div *ngIf="isProjectsPage && !isHomePage" class="projets-galerie">
-    <div class="projet-card" *ngFor="let projet of projets">
+    <div class="projet-card" *ngFor="let projet of projetsFiltres">
       <div class="projet-image">
         <img [src]="projet.image" [alt]="projet.titre">
       </div>
