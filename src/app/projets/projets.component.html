@@ -47,19 +47,44 @@
       </swiper-slide>
     </swiper-container>
   </div>
-
-  <!-- Affichage Galerie (pour la page projets) -->
   <div *ngIf="isProjectsPage && !isHomePage" class="projets-galerie">
     <div class="projet-card" *ngFor="let projet of projetsFiltres">
       <div class="projet-image">
         <img [src]="projet.image" [alt]="projet.titre">
+        <!-- Badge pour la catégorie -->
+        <span class="projet-categorie" *ngIf="projet.categorie">{{ projet.categorie }}</span>
       </div>
       <div class="projet-content">
         <h3>{{ projet.titre }}</h3>
         <p>{{ projet.description }}</p>
+
+        <div class="langages-container">
+          <div class="langages-icons">
+            <!-- Gestion des langages uniques ou multiples -->
+            <ng-container *ngIf="projet.LanguageCode">
+              <ng-container *ngIf="!projet.LanguageCode.includes(',')">
+                <div class="tech-icon">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/{{projet.LanguageCode}}/{{projet.LanguageCode}}-original.svg"
+                       [alt]="projet.LanguageCode"
+                       [title]="projet.LanguageCode" />
+                </div>
+              </ng-container>
+              <ng-container *ngIf="projet.LanguageCode.includes(',')">
+                <div class="tech-icon" *ngFor="let lang of projet.LanguageCode.split(',')">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/{{lang.trim()}}/{{lang.trim()}}-original.svg"
+                       [alt]="lang.trim()"
+                       [title]="lang.trim()" />
+                </div>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+
         <div class="projet-actions">
-          <a *ngIf="projet.github" [href]="projet.github" target="_blank">Voir le code</a>
-          <span *ngIf="!projet.github">Aucun lien disponible</span>
+          <a *ngIf="projet.github" [href]="projet.github" target="_blank" class="btn-github">
+            <i class="fab fa-github"></i> Voir le code
+          </a>
+          <span *ngIf="!projet.github" class="no-link">Code privé</span>
         </div>
       </div>
     </div>
