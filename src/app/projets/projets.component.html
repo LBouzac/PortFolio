@@ -1,12 +1,52 @@
 <section class="projets-section">
   <h2>Mes Projets</h2>
   <!-- Affichage Galerie (pour la page projets) -->
-  <div *ngIf="isProjectsPage && !isHomePage" class="projets-galerie">
-    <!-- Système de filtrage -->
-    <div class="filtres">
-      <label><input type="checkbox" class="filtre-btn" [class.actif]="estCategorieActive('Ecole')" (click)="filtrerProjets('Ecole')">École</label>
-      <label><input type="checkbox" class="filtre-btn" [class.actif]="estCategorieActive('Personnel')" (click)="filtrerProjets('Personnel')">Personnel</label>
-      <label><input type="checkbox" class="filtre-btn" [class.actif]="estCategorieActive('Alternance')" (click)="filtrerProjets('Alternance')">Alternance</label>
+  <div *ngIf="isProjectsPage && !isHomePage">
+      <div class="filtres-toggle" (click)="toggleFiltres()">
+        <span>Filtres</span>
+        <i class="fas" [ngClass]="filtresVisibles ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+      </div>
+    <div class="projets-galerie">
+
+    <div class="filtres-container" [ngClass]="{'filtres-hidden': !filtresVisibles}">
+        <h3 class="filtres-titre">Filtrer les projets</h3>
+
+        <div class="filtres-section">
+          <h4 class="filtres-section-titre">Par catégorie</h4>
+          <div class="filtres-groupe">
+            <label class="filtre-item" [class.actif]="estCategorieActive('Ecole')">
+              <input type="checkbox" id="filtre-ecole" class="filtre-checkbox"
+                     [checked]="estCategorieActive('Ecole')"
+                     (change)="filtrerProjets('Ecole')">
+              <span class="filtre-label">École</span>
+            </label>
+            <label class="filtre-item" [class.actif]="estCategorieActive('Personnel')">
+              <input type="checkbox" id="filtre-personnel" class="filtre-checkbox"
+                     [checked]="estCategorieActive('Personnel')"
+                     (change)="filtrerProjets('Personnel')">
+              <span class="filtre-label">Personnel</span>
+            </label>
+            <label class="filtre-item" [class.actif]="estCategorieActive('Alternance')">
+              <input type="checkbox" id="filtre-alternance" class="filtre-checkbox"
+                     [checked]="estCategorieActive('Alternance')"
+                     (change)="filtrerProjets('Alternance')">
+              <span class="filtre-label">Alternance</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="filtres-section">
+          <h4 class="filtres-section-titre">Par technologie</h4>
+          <div class="filtres-groupe filtres-langages">
+            <label *ngFor="let langage of langages" class="filtre-item" [class.actif]="estLangageActif(langage)">
+              <input type="checkbox" [id]="'filtre-' + langage" class="filtre-checkbox"
+                     [checked]="estLangageActif(langage)"
+                     (change)="filtrerProjetsParLangage(langage)">
+              <span class="filtre-label">{{ langage }}</span>
+            </label>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <!-- Affichage Carrousel (pour la page d'accueil) -->

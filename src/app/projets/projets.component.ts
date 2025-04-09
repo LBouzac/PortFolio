@@ -22,6 +22,9 @@ export class ProjetsComponent implements OnInit {
   filtresActifs: string[] = [];
   categories: string[] = ['Ecole', 'Personnel', 'Alternance'];
   projets: any[] = [];
+  langages: string[] = ['php', 'mysql', 'java', 'json', 'python', 'angular', 'javascript', 'kotlin'];
+  filtresLangagesActifs: string[] = [];
+  filtresVisibles: boolean = true;
 
   constructor(
     private router: Router,
@@ -63,5 +66,31 @@ export class ProjetsComponent implements OnInit {
   // Méthode utilitaire pour vérifier si une catégorie est sélectionnée
   estCategorieActive(categorie: string): boolean {
     return this.filtresActifs.includes(categorie);
+  }
+
+  filtrerProjetsParLangage(langage: string): void {
+    const index = this.filtresLangagesActifs.indexOf(langage);
+
+    if (index === -1) {
+      this.filtresLangagesActifs.push(langage);
+    } else {
+      this.filtresLangagesActifs.splice(index, 1);
+    }
+
+    if (this.filtresLangagesActifs.length > 0) {
+      this.projetsFiltres = this.projets.filter(projet =>
+        projet.LanguageCode?.split(',').some((lang: string) => this.filtresLangagesActifs.includes(lang.trim()))
+      );
+    } else {
+      this.projetsFiltres = this.projets;
+    }
+  }
+
+  estLangageActif(langage: string): boolean {
+    return this.filtresLangagesActifs.includes(langage);
+  }
+
+  toggleFiltres(): void {
+    this.filtresVisibles = !this.filtresVisibles;
   }
 }
