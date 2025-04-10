@@ -93,7 +93,7 @@ swiper-slide {
 
 /* Projet card */
 .projet-card {
-  background: linear-gradient(145deg, var(--white-05), var(--white-02));
+  background: linear-gradient(145deg, var(--white-05));
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-lg);
@@ -256,14 +256,13 @@ swiper-slide {
   margin-bottom: 8px;
   cursor: pointer;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   color: var(--color-text);
   font-weight: 500;
   font-size: 0.85rem;
   transition: var(--trans-fast);
-  width: 45px;
-  height: 25px;
+  width: 5%;
 }
 
 .filtres-toggle:hover {
