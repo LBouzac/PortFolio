@@ -78,5 +78,14 @@
     "LanguageCode": "php, mysql",
     "github": "https://github.com/LBouzac/SioSlamGroupe2",
     "categories": "Ecole"
+  },
+  {
+    "id": 10,
+    "titre": "Calculatrice",
+    "description": "Projet personnel de création d'une calculatrice en Rust, pour apprendre les bases du langages",
+    "image": "assets/img/projet10.png",
+    "LanguageCode": "rust",
+    "github": "https://github.com/LBouzac/CalculatriceRust",
+    "categories": "Personnel"
   }
 ]
