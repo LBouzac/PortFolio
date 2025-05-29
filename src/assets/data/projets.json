@@ -5,7 +5,6 @@
     "description": "Projet de seconde année de BTS SIO en B2 SLAM Atelier Professionnel, fait avec PHP, SQL.",
     "image": "assets/img/projet1.png",
     "LanguageCode": "php, mysql",
-    "github": "https://github.com/LoutrePasSauvage/B2SLAM-AppRestoWeb",
     "categories": "Ecole"
   },
   {
@@ -13,7 +12,6 @@
     "titre": "AppRestoSwing",
     "description": "Projet de seconde année de BTS SIO en B2 SLAM Atelier Professionnel, fait avec Java, JSON.",
     "image": "assets/img/projet2.png",
-    "github": "https://github.com/LoutrePasSauvage/B2SLAM-AppRestoSwing",
     "LanguageCode": "java, json",
     "categories": "Ecole"
   },
@@ -22,7 +20,6 @@
     "titre": "Path of the Loner",
     "description": "Projet scolaire de création d'un jeu RPG textuel, fait avec Python.",
     "image": "assets/img/projet3.png",
-    "github": "https://github.com/LBouzac/path-of-the-loner",
     "LanguageCode": "python",
     "categories": "Ecole"
   },
@@ -31,7 +28,6 @@
     "titre": "Covid-19",
     "description": "Projet scolaire de création d'une application web sur la Covid-19, fait avec Angular.",
     "image": "assets/img/projet4.png",
-    "github": "https://github.com/LBouzac/Angular-CDAN-Cours",
     "LanguageCode": "angular",
     "categories": "Ecole"
   },
@@ -59,7 +55,6 @@
     "description": "Projet scolaire de création d'une application et utilisation d'une API en Kotlin.",
     "image": "assets/img/projet7.png",
     "LanguageCode": "kotlin, openapi",
-    "github": "https://github.com/LBouzac/TP_Kotlin_API",
     "categories": "Ecole"
   },
   {
