@@ -28,9 +28,10 @@ pipeline {
 
        stage('⚙️ Configuration (Ansible)') {
             steps {
+                // TOUT ce qui contient de la logique (variables) doit être dans ce bloc script
                 script {
                     echo "🔍 Recherche de l'IP DHCP réelle sur l'hôte Proxmox..."
-                    sleep 20 
+                    sleep 15 
 
                     env.LXC_IP = sh(
                         script: """
@@ -44,20 +45,20 @@ pipeline {
 
                     echo "✅ IP Réelle trouvée : ${env.LXC_IP}"
 
-                    // 1. On récupère le bon TOKEN généré par OpenTofu
+                    // Le dir() est BIEN À L'INTÉRIEUR du script {}
                     dir('infra-auto') {
                         env.TUNNEL_TOKEN = sh(script: 'tofu output -raw tunnel_token', returnStdout: true).trim()
                     }
 
-                    // 2. On lance Ansible avec ce Token spécifique
+                    // On lance Ansible
                     sh """
                         ANSIBLE_HOST_KEY_CHECKING=False \
                         ansible-playbook -i ${env.LXC_IP}, setup-site.yml \
                         --extra-vars "tunnel_token=${env.TUNNEL_TOKEN}"
                     """
-                }
-            }
-        }
+                } // <-- Fin du bloc script
+            } // <-- Fin du bloc steps
+        } // <-- Fin de l'étape
 
        stage('🚀 Build & Deploy Angular') {
             steps {
