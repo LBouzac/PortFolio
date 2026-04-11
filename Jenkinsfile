@@ -34,7 +34,7 @@ pipeline {
                             ssh -o StrictHostKeyChecking=no \
                                 -o UserKnownHostsFile=/dev/null \
                                 root@192.168.1.88 \
-                                'pct exec 300 -- ip -4 addr show eth0 | grep inet | awk "{print \$2}" | cut -d/ -f1'
+                                'pct exec 300 -- ip -4 addr show eth0 | awk "/inet / {print \$2}" | cut -d/ -f1'
                         """,
                         returnStdout: true
                     ).trim()
