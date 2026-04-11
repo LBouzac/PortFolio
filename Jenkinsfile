@@ -59,16 +59,25 @@ pipeline {
 
         stage('🚀 Build & Deploy Angular') {
             steps {
-                echo "📦 Compilation de l'application Angular à la racine..."
-                sh 'npm install'
-                sh 'npm run build -- --configuration production'
+                echo "📥 Téléchargement du code source Angular..."
+                
+                // 1. On crée un dossier temporaire pour le frontend
+                dir('frontend-app') {
+                    
+                    // ⚠️ REMPLACE CETTE URL PAR LE VRAI LIEN HTTP DE TON DÉPÔT (celui de ta capture d'écran)
+                    git branch: 'main', url: 'https://github.com/LBouzac/nom-de-ton-repo.git'
 
-                echo "🚚 Transfert des fichiers vers le conteneur..."
-                sh """
-                    scp -o StrictHostKeyChecking=no \
-                        -o UserKnownHostsFile=/dev/null \
-                        -r dist/*/browser/* root@${env.LXC_IP}:/var/www/html/
-                """
+                    echo "📦 Compilation de l'application Angular..."
+                    sh 'npm install'
+                    sh 'npm run build -- --configuration production'
+
+                    echo "🚚 Transfert des fichiers vers le conteneur..."
+                    sh """
+                        scp -o StrictHostKeyChecking=no \
+                            -o UserKnownHostsFile=/dev/null \
+                            -r dist/*/browser/* root@${env.LXC_IP}:/var/www/html/
+                    """
+                }
             }
         }
     }
