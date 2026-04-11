@@ -1,13 +1,16 @@
 pipeline {
     agent any
-
+    
     environment {
-        // On récupère les secrets configurés dans Jenkins
-        PM_SECRET = credentials('PROXMOX_SECRET')
-        CF_TOKEN  = credentials('CLOUDFLARE_TOKEN')
-        CF_ACC_ID = credentials('CF_ACCOUNT_ID')
-        TF_VAR_proxmox_secret = "${env.PM_SECRET}"
-        TF_VAR_cloudflare_token = "${env.CF_TOKEN}"
+        // 1. Secrets Jenkins
+        PM_SECRET      = credentials('PROXMOX_SECRET')
+        CF_TOKEN       = credentials('CLOUDFLARE_TOKEN')
+        CF_ACC_ID      = credentials('CF_ACCOUNT_ID')
+        
+        // 2. Mapping OpenTofu
+        TF_VAR_proxmox_secret    = "${env.PM_SECRET}"
+        TF_VAR_cloudflare_token  = "${env.CF_TOKEN}"
+        TF_VAR_cloudflare_acc_id = "${env.CF_ACC_ID}"
     }
 
     stages {
@@ -15,42 +18,58 @@ pipeline {
             steps {
                 dir('infra-auto') {
                     sh 'tofu init'
-                    // On crée le LXC et le tunnel chez Cloudflare
                     sh 'tofu apply -auto-approve'
-                    // On récupère l'IP du nouveau conteneur pour Ansible
-                    script {
-                        env.LXC_IP = sh(script: "tofu output -raw lxc_ip", returnStdout: true).trim()
-                        env.TUNNEL_TOKEN = sh(script: "tofu output -raw tunnel_token", returnStdout: true).trim()
-                    }
                 }
             }
         }
 
         stage('⚙️ Configuration (Ansible)') {
             steps {
-                // On attend que le LXC ait fini de démarrer
-                sleep 15
-                // On lance Ansible pour installer Nginx et Cloudflared
-                sh """
-                ansible-playbook -i ${env.LXC_IP}, setup-site.yml \
-                --extra-vars "tunnel_token=${env.TUNNEL_TOKEN}"
-                """
+                script {
+                    echo "🔍 Recherche de l'IP DHCP réelle sur l'hôte Proxmox..."
+                    sleep 15 // Temps pour le bail DHCP
+                    
+                    // On récupère l'IP réelle et on l'écrase dans env.LXC_IP
+                    // On utilise des simples quotes pour le script pour ne pas interférer avec Groovy
+                    env.LXC_IP = sh(
+                        script: "ssh -o StrictHostKeyChecking=no root@192.168.1.88 'pct exec 300 -- ip -4 addr show eth0 | grep inet | awk \"{print \\\$2}\" | cut -d/ -f1'",
+                        returnStdout: true
+                    ).trim()
+
+                    if (env.LXC_IP == "" || env.LXC_IP == "dhcp") {
+                        error "❌ Impossible de déterminer l'IP réelle du conteneur."
+                    }
+
+                    echo "✅ IP Réelle trouvée : ${env.LXC_IP}"
+
+                    // Correction Sécurité : On utilise \$CF_TOKEN pour que le Shell gère le secret
+                    sh "ansible-playbook -i ${env.LXC_IP}, setup-site.yml --extra-vars tunnel_token=\$CF_TOKEN"
+                }
             }
         }
 
         stage('🚀 Build & Deploy Angular') {
             steps {
+                // Compilation
                 sh 'npm install'
                 sh 'npm run build -- --configuration production'
-                // Transfert des fichiers sur le nouveau serveur
-                sh "scp -r dist/port-folio-app/browser/* root@${env.LXC_IP}:/var/www/html/"
+                
+                // Déploiement : env.LXC_IP contient maintenant la vraie IP (ex: 192.168.1.133)
+                // On ajoute -o StrictHostKeyChecking=no pour éviter les blocages SSH
+                sh "scp -v -o StrictHostKeyChecking=no -r dist/*/browser/* root@${env.LXC_IP}:/var/www/html/"
             }
         }
     }
-
+    
     post {
         success {
-            echo "✅ Succès ! Ton site est en ligne sur https://portfolio.trantor.cc"
+            echo "-----------------------------------------------------------"
+            echo "✅ DÉPLOIEMENT RÉUSSI SUR ${env.LXC_IP} !"
+            echo "🌐 Ton site est en ligne : https://portfolio.trantor.cc"
+            echo "-----------------------------------------------------------"
+        }
+        failure {
+            echo "❌ Échec du build. Vérifie le fichier setup-site.yml (doit utiliser 'service:' et non 'rc_service:')"
         }
     }
 }
