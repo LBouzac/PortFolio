@@ -2,21 +2,25 @@ pipeline {
     agent any
     
     environment {
-        // 1. Secrets Jenkins
-        PM_SECRET  = credentials('PROXMOX_SECRET')
-        CF_TOKEN   = credentials('CLOUDFLARE_TOKEN')
-        CF_ACC_ID  = credentials('CF_ACCOUNT_ID')
+        // 1. Secrets Jenkins assignés DIRECTEMENT aux variables Tofu.
+        // Cela résout l'avertissement de sécurité lié à l'interpolation Groovy ("${env...}")
+        TF_VAR_proxmox_secret    = credentials('PROXMOX_SECRET')
+        TF_VAR_cloudflare_token  = credentials('CLOUDFLARE_TOKEN')
+        TF_VAR_cloudflare_acc_id = credentials('CF_ACCOUNT_ID')
         
-        // 2. Variables Tofu
-        TF_VAR_proxmox_secret    = "${env.PM_SECRET}"
-        TF_VAR_cloudflare_token  = "${env.CF_TOKEN}"
-        TF_VAR_cloudflare_acc_id = "${env.CF_ACC_ID}"
-        
-        // 3. Variable Ansible
+        // 2. Variable Ansible
         ANSIBLE_HOST_KEY_CHECKING = "False"
     }
 
     stages {
+        // NOUVELLE ÉTAPE CRUCIALE : Télécharger le code qui contient le dossier 'infra-auto'
+        stage('📥 Récupération du code Infra') {
+            steps {
+                // 'checkout scm' télécharge le dépôt Git dans lequel se trouve ce fichier Jenkinsfile
+                checkout scm
+            }
+        }
+
         stage('🏗️ Provisioning (OpenTofu)') {
             steps {
                 dir('infra-auto') {
@@ -28,7 +32,6 @@ pipeline {
 
         stage('⚙️ Configuration (Ansible)') {
             steps {
-                // Le bloc script est OBLIGATOIRE ici pour gérer les variables
                 script {
                     echo "🔍 Recherche de l'IP DHCP réelle sur l'hôte Proxmox..."
                     sleep 15 
@@ -61,9 +64,7 @@ pipeline {
             steps {
                 echo "📥 Téléchargement du code source Angular..."
                 
-                // 1. On crée un dossier temporaire pour le frontend
                 dir('frontend-app') {
-                    
                     git branch: 'master', url: 'https://github.com/LBouzac/PortFolio.git'
 
                     echo "📦 Compilation de l'application Angular..."
@@ -86,7 +87,7 @@ pipeline {
             echo "-----------------------------------------------------------"
             echo "✅ DÉPLOIEMENT RÉUSSI !"
             echo "🌐 IP du serveur : ${env.LXC_IP}"
-            echo "🔗 Accès : https://portfolio.trantor.cc"
+            echo "🔗 Accès : https://trantor.cc"
             echo "-----------------------------------------------------------"
         }
         failure {
