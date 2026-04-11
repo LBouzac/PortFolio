@@ -34,7 +34,7 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
-          port: 22
+          port: 2222
           source: "dist/port-folio-app/browser/*"
           target: "/var/www/html"
           strip_components: 3
