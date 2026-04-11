@@ -26,15 +26,12 @@ pipeline {
             }
         }
 
-        stage('⚙️ Configuration (Ansible)') {
+       stage('⚙️ Configuration (Ansible)') {
             steps {
                 script {
                     echo "🔍 Recherche de l'IP DHCP réelle sur l'hôte Proxmox..."
-                    
-                    // On attend que le conteneur démarre et demande son IP
                     sleep 20 
 
-                    // On interroge le Proxmox (192.168.1.88) pour trouver l'IP du conteneur 300
                     env.LXC_IP = sh(
                         script: """
                             ssh -o StrictHostKeyChecking=no \
@@ -45,17 +42,18 @@ pipeline {
                         returnStdout: true
                     ).trim()
 
-                    if (!env.LXC_IP || env.LXC_IP == "" || env.LXC_IP == "dhcp") {
-                        error "❌ Impossible de déterminer l'IP réelle du conteneur. Vérifie le réseau Proxmox."
-                    }
-
                     echo "✅ IP Réelle trouvée : ${env.LXC_IP}"
 
-                    // Exécution d'Ansible avec le token Cloudflare sécurisé
-                    // On utilise \$CF_TOKEN pour que le secret ne soit pas logué en clair par Jenkins
+                    // 1. On récupère le bon TOKEN généré par OpenTofu
+                    dir('infra-auto') {
+                        env.TUNNEL_TOKEN = sh(script: 'tofu output -raw tunnel_token', returnStdout: true).trim()
+                    }
+
+                    // 2. On lance Ansible avec ce Token spécifique
                     sh """
+                        ANSIBLE_HOST_KEY_CHECKING=False \
                         ansible-playbook -i ${env.LXC_IP}, setup-site.yml \
-                        --extra-vars "tunnel_token=\$CF_TOKEN"
+                        --extra-vars "tunnel_token=${env.TUNNEL_TOKEN}"
                     """
                 }
             }
@@ -88,7 +86,6 @@ pipeline {
         }
         failure {
             echo "❌ Échec du pipeline."
-            echo "💡 Conseil : Vérifie que 'setup-site.yml' utilise 'service:' et non 'rc_service:'"
         }
     }
 }
