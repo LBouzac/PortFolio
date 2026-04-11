@@ -61,18 +61,21 @@ pipeline {
 
        stage('🚀 Build & Deploy Angular') {
             steps {
-                echo "📦 Compilation de l'application Angular à la racine..."
-                
-                // Cas A : On lance npm directement ici
-                sh 'npm install'
-                sh 'npm run build -- --configuration production'
+                echo "✅ IP Réelle trouvée : ${env.LXC_IP}"
 
-                echo "🚚 Transfert des fichiers vers le conteneur..."
-                sh """
-                    scp -o StrictHostKeyChecking=no \
-                        -o UserKnownHostsFile=/dev/null \
-                        -r dist/*/browser/* root@${env.LXC_IP}:/var/www/html/
-                """
+                    dir('infra-auto') {
+                        env.TUNNEL_TOKEN = sh(script: 'tofu output -raw tunnel_token', returnStdout: true).trim()
+                    }
+
+                    echo "⏳ Laisse le temps au service SSH de s'allumer..."
+                    sleep 15 
+                    // ----------------------------------
+
+                    sh """
+                        ANSIBLE_HOST_KEY_CHECKING=False \
+                        ansible-playbook -i ${env.LXC_IP}, setup-site.yml \
+                        --extra-vars "tunnel_token=${env.TUNNEL_TOKEN}"
+                    """
             }
         }
     }
