@@ -2,17 +2,17 @@ pipeline {
     agent any
     
     environment {
-        // 1. Récupération des secrets Jenkins
+        // 1. Secrets Jenkins
         PM_SECRET  = credentials('PROXMOX_SECRET')
         CF_TOKEN   = credentials('CLOUDFLARE_TOKEN')
         CF_ACC_ID  = credentials('CF_ACCOUNT_ID')
         
-        // 2. Mapping pour OpenTofu (TF_VAR_...)
+        // 2. Variables Tofu
         TF_VAR_proxmox_secret    = "${env.PM_SECRET}"
         TF_VAR_cloudflare_token  = "${env.CF_TOKEN}"
         TF_VAR_cloudflare_acc_id = "${env.CF_ACC_ID}"
         
-        // 3. Désactiver la vérification des clés SSH pour Ansible
+        // 3. Variable Ansible
         ANSIBLE_HOST_KEY_CHECKING = "False"
     }
 
@@ -26,9 +26,9 @@ pipeline {
             }
         }
 
-       stage('⚙️ Configuration (Ansible)') {
+        stage('⚙️ Configuration (Ansible)') {
             steps {
-                // TOUT ce qui contient de la logique (variables) doit être dans ce bloc script
+                // Le bloc script est OBLIGATOIRE ici pour gérer les variables
                 script {
                     echo "🔍 Recherche de l'IP DHCP réelle sur l'hôte Proxmox..."
                     sleep 15 
@@ -45,38 +45,30 @@ pipeline {
 
                     echo "✅ IP Réelle trouvée : ${env.LXC_IP}"
 
-                    // Le dir() est BIEN À L'INTÉRIEUR du script {}
                     dir('infra-auto') {
                         env.TUNNEL_TOKEN = sh(script: 'tofu output -raw tunnel_token', returnStdout: true).trim()
                     }
 
-                    // On lance Ansible
                     sh """
-                        ANSIBLE_HOST_KEY_CHECKING=False \
                         ansible-playbook -i ${env.LXC_IP}, setup-site.yml \
                         --extra-vars "tunnel_token=${env.TUNNEL_TOKEN}"
                     """
-                } // <-- Fin du bloc script
-            } // <-- Fin du bloc steps
-        } // <-- Fin de l'étape
+                }
+            }
+        }
 
-       stage('🚀 Build & Deploy Angular') {
+        stage('🚀 Build & Deploy Angular') {
             steps {
-                echo "✅ IP Réelle trouvée : ${env.LXC_IP}"
+                echo "📦 Compilation de l'application Angular à la racine..."
+                sh 'npm install'
+                sh 'npm run build -- --configuration production'
 
-                    dir('infra-auto') {
-                        env.TUNNEL_TOKEN = sh(script: 'tofu output -raw tunnel_token', returnStdout: true).trim()
-                    }
-
-                    echo "⏳ Laisse le temps au service SSH de s'allumer..."
-                    sleep 15 
-                    // ----------------------------------
-
-                    sh """
-                        ANSIBLE_HOST_KEY_CHECKING=False \
-                        ansible-playbook -i ${env.LXC_IP}, setup-site.yml \
-                        --extra-vars "tunnel_token=${env.TUNNEL_TOKEN}"
-                    """
+                echo "🚚 Transfert des fichiers vers le conteneur..."
+                sh """
+                    scp -o StrictHostKeyChecking=no \
+                        -o UserKnownHostsFile=/dev/null \
+                        -r dist/*/browser/* root@${env.LXC_IP}:/var/www/html/
+                """
             }
         }
     }
