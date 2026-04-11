@@ -1,30 +1,50 @@
-name: Deploy to GitHub Pages
+name: Deploy Angular Portfolio to Proxmox
 
+# L'action se déclenche à chaque fois que tu "push" sur la branche main
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      # 1. GitHub récupère ton code
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
+      # 2. On installe l'environnement Node.js (nécessaire pour Angular)
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20' # Modifie si tu utilises une autre version
 
-      - name: Install dependencies
-        run: npm ci
+      # 3. On installe les paquets et on compile le projet
+      - name: Install dependencies and Build
+        run: |
+          npm ci
+          npm run build -- --configuration production
 
-      - name: Build
-        run: npm run build -- --configuration=production --base-href="https://lbouzac.github.io/PortFolio/"
-
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
+      # 4. On transfère les fichiers compilés vers ton serveur Proxmox (Alpine)
+      - name: Copy files to Proxmox via SCP
+        uses: appleboy/scp-action@v0.1.7
         with:
-          folder: dist/port-folio-app
-          branch: gh-pages
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: 22
+          source: "dist/port-folio-app/browser/*"
+          target: "/var/www/html"
+          strip_components: 3
+
+      # 5. On redémarre Nginx pour prendre en compte les changements
+      - name: Restart Nginx
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: 22
+          script: rc-service nginx restart
