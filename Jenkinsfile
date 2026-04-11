@@ -1,35 +1,56 @@
 pipeline {
     agent any
 
+    environment {
+        // On récupère les secrets configurés dans Jenkins
+        PM_SECRET = credentials('PROXMOX_SECRET')
+        CF_TOKEN  = credentials('CLOUDFLARE_TOKEN')
+        CF_ACC_ID = credentials('CF_ACCOUNT_ID')
+        TF_VAR_proxmox_secret = "${env.PM_SECRET}"
+        TF_VAR_cloudflare_token = "${env.CF_TOKEN}"
+    }
+
     stages {
-        stage('1. Récupération du Code') {
+        stage('🏗️ Provisioning (OpenTofu)') {
             steps {
-                // Jenkins récupère automatiquement le code lié à ce job
-                checkout scm
+                dir('infra-auto') {
+                    sh 'tofu init'
+                    // On crée le LXC et le tunnel chez Cloudflare
+                    sh 'tofu apply -auto-approve'
+                    // On récupère l'IP du nouveau conteneur pour Ansible
+                    script {
+                        env.LXC_IP = sh(script: "tofu output -raw lxc_ip", returnStdout: true).trim()
+                        env.TUNNEL_TOKEN = sh(script: "tofu output -raw tunnel_token", returnStdout: true).trim()
+                    }
+                }
             }
         }
 
-        stage('2. Installation & Compilation') {
+        stage('⚙️ Configuration (Ansible)') {
             steps {
-                // On installe les paquets et on build l'app Angular
+                // On attend que le LXC ait fini de démarrer
+                sleep 10
+                // On lance Ansible pour installer Nginx et Cloudflared
+                sh """
+                ansible-playbook -i ${env.LXC_IP}, setup-site.yml \
+                --extra-vars "tunnel_token=${env.TUNNEL_TOKEN}"
+                """
+            }
+        }
+
+        stage('🚀 Build & Deploy Angular') {
+            steps {
                 sh 'npm install'
                 sh 'npm run build -- --configuration production'
+                // Transfert des fichiers sur le nouveau serveur
+                sh "scp -r dist/port-folio-app/browser/* root@${env.LXC_IP}:/var/www/html/"
             }
         }
+    }
 
-        stage('3. Déploiement Local') {
-            steps {
-                // On copie les fichiers directement via le réseau local Proxmox
-                // ATTENTION : Vérifie le chemin "dist/port-folio-app/browser/*" selon ta version d'Angular
-                sh 'scp -r dist/port-folio-app/browser/* root@192.168.1.18:/var/www/html/'
-            }
-        }
-
-        stage('4. Redémarrage Nginx') {
-            steps {
-                // On envoie un ordre de redémarrage au serveur web
-                sh 'ssh root@192.168.1.18 "rc-service nginx restart"'
-            }
+    post {
+        success {
+            echo "✅ Succès ! Ton site est en ligne sur https://portfolio.trantor.cc"
         }
     }
 }
