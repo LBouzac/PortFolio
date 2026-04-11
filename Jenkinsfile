@@ -59,19 +59,22 @@ pipeline {
             }
         }
 
-        stage('🚀 Build & Deploy Angular') {
+       stage('🚀 Build & Deploy Angular') {
             steps {
-                echo "📦 Compilation de l'application Angular..."
-                sh 'npm install'
-                sh 'npm run build -- --configuration production'
+                // ⚠️ REMPLACE 'mon-app-angular' PAR LE VRAI NOM DE TON DOSSIER ANGULAR
+                dir('mon-app-angular') { 
+                    echo "📦 Compilation de l'application Angular..."
+                    sh 'npm install'
+                    sh 'npm run build -- --configuration production'
 
-                echo "🚚 Transfert des fichiers vers le conteneur..."
-                // Transfert via SCP vers le dossier Nginx du conteneur
-                sh """
-                    scp -o StrictHostKeyChecking=no \
-                        -o UserKnownHostsFile=/dev/null \
-                        -r dist/*/browser/* root@${env.LXC_IP}:/var/www/html/
-                """
+                    echo "🚚 Transfert des fichiers vers le conteneur..."
+                    // Le transfert se fait depuis ce dossier, donc le chemin 'dist/...' sera correct
+                    sh """
+                        scp -o StrictHostKeyChecking=no \
+                            -o UserKnownHostsFile=/dev/null \
+                            -r dist/*/browser/* root@${env.LXC_IP}:/var/www/html/
+                    """
+                }
             }
         }
     }
