@@ -21,14 +21,14 @@ pipeline {
             steps {
                 // On copie les fichiers directement via le réseau local Proxmox
                 // ATTENTION : Vérifie le chemin "dist/port-folio-app/browser/*" selon ta version d'Angular
-                sh 'scp -r dist/port-folio-app/browser/* root@192.168.X.X:/var/www/html/'
+                sh 'scp -r dist/port-folio-app/browser/* root@192.168.1.18:/var/www/html/'
             }
         }
 
         stage('4. Redémarrage Nginx') {
             steps {
                 // On envoie un ordre de redémarrage au serveur web
-                sh 'ssh root@192.168.X.X "rc-service nginx restart"'
+                sh 'ssh root@192.168.1.18 "rc-service nginx restart"'
             }
         }
     }
