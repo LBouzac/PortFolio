@@ -64,7 +64,6 @@ pipeline {
                 // 1. On crée un dossier temporaire pour le frontend
                 dir('frontend-app') {
                     
-                    // ⚠️ REMPLACE CETTE URL PAR LE VRAI LIEN HTTP DE TON DÉPÔT (celui de ta capture d'écran)
                     git branch: 'master', url: 'https://github.com/LBouzac/PortFolio.git'
 
                     echo "📦 Compilation de l'application Angular..."
