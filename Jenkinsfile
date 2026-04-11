@@ -65,7 +65,7 @@ pipeline {
                 dir('frontend-app') {
                     
                     // ⚠️ REMPLACE CETTE URL PAR LE VRAI LIEN HTTP DE TON DÉPÔT (celui de ta capture d'écran)
-                    git branch: 'main', url: 'https://github.com/LBouzac/nom-de-ton-repo.git'
+                    git branch: 'master', url: 'https://github.com/LBouzac/PortFolio.git'
 
                     echo "📦 Compilation de l'application Angular..."
                     sh 'npm install'
