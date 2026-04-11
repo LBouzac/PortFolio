@@ -2,29 +2,24 @@ pipeline {
     agent any
     
     environment {
-        // 1. Assignation DIRECTE pour éviter les alertes de sécurité (interpolation)
-        // Jenkins gère automatiquement le mapping des credentials vers les variables TF_VAR
-        TF_VAR_proxmox_secret    = credentials('PROXMOX_SECRET')
-        TF_VAR_cloudflare_token  = credentials('CLOUDFLARE_TOKEN')
-        TF_VAR_cloudflare_acc_id = credentials('CF_ACCOUNT_ID')
+        // 1. Secrets Jenkins
+        PM_SECRET  = credentials('PROXMOX_SECRET')
+        CF_TOKEN   = credentials('CLOUDFLARE_TOKEN')
+        CF_ACC_ID  = credentials('CF_ACCOUNT_ID')
         
-        // 2. Variable Ansible
+        // 2. Variables Tofu
+        TF_VAR_proxmox_secret    = "${env.PM_SECRET}"
+        TF_VAR_cloudflare_token  = "${env.CF_TOKEN}"
+        TF_VAR_cloudflare_acc_id = "${env.CF_ACC_ID}"
+        
+        // 3. Variable Ansible
         ANSIBLE_HOST_KEY_CHECKING = "False"
     }
 
     stages {
-        // ÉTAPE MANQUANTE : Récupérer le dépôt Git pour avoir les fichiers .tf
-        stage('📥 Checkout Code') {
-            steps {
-                checkout scm
-            }
-        }
-
         stage('🏗️ Provisioning (OpenTofu)') {
             steps {
                 dir('infra-auto') {
-                    // On s'assure que le dossier existe avant de lancer Tofu
-                    sh 'ls -la'
                     sh 'tofu init'
                     sh 'tofu apply -auto-approve'
                 }
@@ -33,18 +28,18 @@ pipeline {
 
         stage('⚙️ Configuration (Ansible)') {
             steps {
+                // Le bloc script est OBLIGATOIRE ici pour gérer les variables
                 script {
                     echo "🔍 Recherche de l'IP DHCP réelle sur l'hôte Proxmox..."
                     sleep 15 
 
-                    // Utilisation de guillemets simples pour le script shell afin d'éviter l'interpolation Groovy
                     env.LXC_IP = sh(
-                        script: '''
+                        script: """
                             ssh -o StrictHostKeyChecking=no \
                                 -o UserKnownHostsFile=/dev/null \
                                 root@192.168.1.88 \
                                 'pct exec 300 -- hostname -I | cut -d" " -f1'
-                        ''',
+                        """,
                         returnStdout: true
                     ).trim()
 
@@ -66,7 +61,9 @@ pipeline {
             steps {
                 echo "📥 Téléchargement du code source Angular..."
                 
+                // 1. On crée un dossier temporaire pour le frontend
                 dir('frontend-app') {
+                    
                     git branch: 'master', url: 'https://github.com/LBouzac/PortFolio.git'
 
                     echo "📦 Compilation de l'application Angular..."
@@ -74,7 +71,6 @@ pipeline {
                     sh 'npm run build -- --configuration production'
 
                     echo "🚚 Transfert des fichiers vers le conteneur..."
-                    // Utilisation de l'IP dynamique récupérée plus haut
                     sh """
                         scp -o StrictHostKeyChecking=no \
                             -o UserKnownHostsFile=/dev/null \
@@ -90,7 +86,7 @@ pipeline {
             echo "-----------------------------------------------------------"
             echo "✅ DÉPLOIEMENT RÉUSSI !"
             echo "🌐 IP du serveur : ${env.LXC_IP}"
-            echo "🔗 Accès : https://trantors.cc"
+            echo "🔗 Accès : https://portfolio.trantors.cc"
             echo "-----------------------------------------------------------"
         }
         failure {
