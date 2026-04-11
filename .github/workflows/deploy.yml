@@ -4,7 +4,7 @@ name: Deploy Angular Portfolio to Proxmox
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build-and-deploy:
