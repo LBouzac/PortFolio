@@ -29,7 +29,7 @@ pipeline {
         stage('⚙️ Configuration (Ansible)') {
             steps {
                 // On attend que le LXC ait fini de démarrer
-                sleep 10
+                sleep 15
                 // On lance Ansible pour installer Nginx et Cloudflared
                 sh """
                 ansible-playbook -i ${env.LXC_IP}, setup-site.yml \
