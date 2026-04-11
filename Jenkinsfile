@@ -24,6 +24,7 @@ pipeline {
             steps {
                 dir('infra-auto') {
                     // On s'assure que le dossier existe avant de lancer Tofu
+                    sh 'ls -la'
                     sh 'tofu init'
                     sh 'tofu apply -auto-approve'
                 }
