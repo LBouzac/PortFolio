@@ -6,7 +6,7 @@ export class PocketBaseService {
   private pb: PocketBase;
 
   constructor() {
-    this.pb = new PocketBase('http://192.168.1.113:8080');
+    this.pb = new PocketBase('http://192.168.1.113:8080'); // URL DE TEST
   }
 
   // Récupérer tous les projets
