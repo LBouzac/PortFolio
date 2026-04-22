@@ -2,7 +2,8 @@ import { Component, OnInit, ViewEncapsulation, CUSTOM_ELEMENTS_SCHEMA, Input } f
 import { CommonModule } from '@angular/common';
 import { register } from 'swiper/element/bundle';
 import { Router } from '@angular/router';
-import { ProjetService } from '../services/projet.service';
+// Importe ton nouveau service
+import { PocketBaseService } from '../services/pocketbase.service'; 
 
 @Component({
   selector: 'app-projets',
@@ -13,7 +14,6 @@ import { ProjetService } from '../services/projet.service';
   encapsulation: ViewEncapsulation.None,
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-
 export class ProjetsComponent implements OnInit {
   @Input() isHomePage: boolean = false;
 
@@ -28,18 +28,20 @@ export class ProjetsComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private projetService: ProjetService
+    private pbService: PocketBaseService // Injection du nouveau service
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     register();
     this.isProjectsPage = this.router.url === '/projets';
 
-    // Charger les projets depuis le service
-    this.projetService.getProjets().subscribe(data => {
-      this.projets = data;
+    try {
+      // Appel asynchrone pour récupérer les projets
+      this.projets = await this.pbService.getProjets();
       this.projetsFiltres = this.projets;
-    });
+    } catch (error) {
+      console.error("Erreur lors de la récupération des projets PocketBase :", error);
+    }
   }
   // Nouvelle méthode pour gérer les sélections multiples
   filtrerProjets(categorie: string): void {

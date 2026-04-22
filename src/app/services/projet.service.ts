@@ -1,16 +1,20 @@
-// service for get json data
+// service for get projets data from PocketBase
 
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
+import { PocketBaseService } from './pocketbase.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjetService {
-  constructor(private http: HttpClient) { }
+  constructor(private pocketBaseService: PocketBaseService) { }
 
   getProjets(): Observable<any[]> {
-    return this.http.get<any[]>('assets/data/projets.json');
+    return from(this.pocketBaseService.getProjets());
+  }
+
+  getProjetDetail(recordId: string): Observable<any> {
+    return from(this.pocketBaseService.getProjetDetail(recordId));
   }
 }
