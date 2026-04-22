@@ -6,18 +6,39 @@ export class PocketBaseService {
   private pb: PocketBase;
 
   constructor() {
-    this.pb = new PocketBase('http://192.168.1.113:8080'); // URL DE TEST
+    this.pb = new PocketBase('http://192.168.1.113:8080');
   }
 
-  // Récupérer tous les projets
+  // // Récupérer tous les projets
+  // async getProjets() {
+  //   return await this.pb.collection('projets').getFullList();
+  // }
+
+  // // Récupérer un projet détaillé
+  // async getProjetDetail(recordId: string) {
+  //   return await this.pb.collection('projets').getOne(recordId, {
+  //     expand: 'relField1,relField2.subRelField',
+  //   });
+  // }
   async getProjets() {
-    return await this.pb.collection('articles').getFullList();
-  }
+  const projets = await this.pb.collection('projets').getFullList();
+  return projets.map(projet => ({
+    ...projet,
+    image: projet['image'] ? this.getImageUrl('projets', projet.id, projet['image']) : ''
+  }));
+}
 
-  // Récupérer un projet détaillé
-  async getProjetDetail(recordId: string) {
-    return await this.pb.collection('articles').getOne(recordId, {
-      expand: 'relField1,relField2.subRelField',
-    });
+private getImageUrl(collection: string, recordId: string, filename: string): string {
+  return `http://192.168.1.113:8080/api/files/${collection}/${recordId}/${filename}`;
+}
+
+async getProjetDetail(recordId: string) {
+  const projet = await this.pb.collection('projets').getOne(recordId, {
+    expand: 'relField1,relField2.subRelField',
+  });
+  if (projet['image']) {
+    projet['image'] = this.getImageUrl('projets', recordId, projet['image']);
+  }
+  return projet;
   }
 }
