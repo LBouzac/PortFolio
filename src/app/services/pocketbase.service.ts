@@ -40,5 +40,6 @@ async getProjetDetail(recordId: string) {
     projet['image'] = this.getImageUrl('projets', recordId, projet['image']);
   }
   return projet;
-  }
+  } 
+
 }
